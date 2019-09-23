@@ -74,6 +74,22 @@ output: {
   filename: '[chunkhash].js'      // 특정 webpack chunk에 따른 output 파일명 생성
 }
 ```
+### Tip
+* output.path : 번들링한 결과가 위치할 번들링 파일의 절대경로
+* output.publicPth : 브라우저가 참고할 번들링 결과 파일의 URL 주소(CDN을 사용하는 경우 CND 호스트 지정)
+```js
+//publicPath 예제 1
+output:{
+  path: "/home/proj/public/assets",
+  publicPath: "/assets/"
+}
+
+//publicPath 예제 2
+output:{
+  path: "/home/proj/cdn/assets/[hash]",
+  publicPath: "http://cdn.example.com/assets/[hash]/"
+}
+```
 
 ## Webpack Loader
 * webpack은 자바스크립트 파일만 처리가 가능하도록 되어 있다. 
@@ -175,7 +191,7 @@ console.log("loaded jQuery version is " + $.fn.jquery);
 ```
 
 ## Webpack Dev Server
-* webpack-dev-server : webpack 자체에서 제공하는 개발 서버ㄹ 빠른 리로딩 기능을 제공한다.
+* webpack-dev-server : webpack 자체에서 제공하는 개발 서버빠른 리로딩 기능을 제공한다.
 
 ### Options
 * publicPath : Webpack으로 번들한 파일들이 위치하는 곳. default 값은 /
