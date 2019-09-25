@@ -195,6 +195,7 @@ console.log("loaded jQuery version is " + $.fn.jquery);
 
 ### Options
 * publicPath : Webpack으로 번들한 파일들이 위치하는 곳. default 값은 /
+               브라우저가 참고할 번들링 결과파일의 URL주소를 지정.(CDN을 사용하는 경우 CDN 호스트 지정)
 ```js
 // 항상 '/' 를 암뒤에 붙여야 한다.
 publicPaht: "/assets/"
