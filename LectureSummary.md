@@ -30,6 +30,13 @@
        };
     
     ````
+## Webpack 명령어
+* webpack: 웹팩 빌드 기본 명령어(개발용)
+* webpack -p: minification 기능이 들어간 빌드(배포용) - 배포에 필요한 리소스를 압축형태로 제공한다.
+* webpack -watch(-w): 개발에서 빌드할 파일의 변화를 감지
+* webpack -d: sourcemap 포함하여 빌드
+* webpack --display-error-details: error 발생시 디버깅 정보를 상세히 출력
+* webpack --optimize-minimize --define process.env.NODE_ENV="'production'": 배포
 
 ## Webpack Entry
 * webpack으로 묶은 모든 라이브러리들을 로딩하는 시작점 설정
@@ -190,7 +197,7 @@ module.exports = {
 console.log("loaded jQuery version is " + $.fn.jquery);
 ```
 
-## Webpack Dev Server
+## [Webpack Dev Server](https://webpack.js.org/guides/development/#using-webpack-dev-server)
 * webpack-dev-server : webpack 자체에서 제공하는 개발 서버빠른 리로딩 기능을 제공한다.
 
 ### Options
@@ -212,5 +219,36 @@ contentBase: false
 compress: true
 ```
 
-## Webpack Dev Middleware
-* webpack-dev-middleward : 서버가 이미 구성된 경우에는 webpack을 미들웨어로 구성하여 서버와 연결.
+## [Webpack Dev Middleware](https://webpack.js.org/guides/development/#using-webpack-dev-middleware)
+* webpack-dev-middleware : 서버가 이미 구성된 경우에는 webpack을 미들웨어로 구성하여 서버와 연결.
+* 기존에 구성한 서버에 webpack에서 컴파일한 파일을 전달하는 middleware wrapper
+* webpack에 설정한 파일을 변경시, 파일에 직접 변경내역을 저장하지 않고 메모리 공간을 활용한다. 
+* 따라서, 변경된 파일 내역을 파일 디렉토리 구조안에서는 확인이 불가능하다. 
+```js
+// server.js - webpack dev middleware 설정부분
+// #1
+var webpackDevMiddleware = require("webpack-dev-middleware");
+var webpack = require("webpack");
+var webpackConfig = require("./webpack.config");
+var compiler = webpack(webpackConfig);
+
+// #2
+app.use(webpackDevMiddleware(compiler, {
+	publicPath: webpackConfig.output.publicPath,
+	stats: {colors: true},
+	lazy: true    //느린 컴파
+}));
+```
+
+## Webpck watch 옵션
+* webpack 설정에 해당되는 파일의 변경이 일어나면 자동으로 번들링을 다시 진행
+* process - 번들링 진행사항을 확인하게 해준다.
+```js
+webpack --process --watch
+```
+* 참고: `npm install --save-dev serve` 한 후 아래처럼 `package.json`에 명령어 설정가능
+```js
+"scripts":{
+  "start": "serve"
+}
+```
