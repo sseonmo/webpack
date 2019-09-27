@@ -219,6 +219,20 @@ contentBase: false
 compress: true
 ```
 
+```js
+//webpack.config.js
+module.exports = {
+  entry: ...
+  output: ...
+  devServer: {
+    // contentBase: path.join(__dirname, "dist")
+    publicPath: "/dist/", // 절대 경로로 지정하고 앞뒤 '/' 꼭 지정
+    compress: true,
+    port: 9000
+  }
+}
+```
+
 ## [Webpack Dev Middleware](https://webpack.js.org/guides/development/#using-webpack-dev-middleware)
 * webpack-dev-middleware : 서버가 이미 구성된 경우에는 webpack을 미들웨어로 구성하여 서버와 연결.
 * 기존에 구성한 서버에 webpack에서 컴파일한 파일을 전달하는 middleware wrapper
@@ -252,3 +266,33 @@ webpack --process --watch
   "start": "serve"
 }
 ```
+
+## 개발자 도구 연동 - [Devtool](https://webpack.js.org/configuration/devtool/)
+* 브라우저에서 webpack로 컴파일된 파일을 디버깅 하기 어려움.
+* 따라서, 아래와 같이 source-map 설정을 추가하여 원래의 파일구조에서 디버깅이 가능함.
+```js
+module.exports = {
+  ...
+  devtool: '#inline-source-map'
+}
+```
+## [gulp](https://valuefactory.tistory.com/314)
+## [Hot Module Replacement](https://webpack.js.org/guides/hot-module-replacement/)
+
+## 참고자료
+1. [Webpack2 Doc] (https://webpack.js.org/)
+2. [Webpack1 Doc] (http://webpack.github.io/docs/)
+3. [webpack-howto] (https://github.com/petehunt/webpack-howto)
+4. [webpack-howto2] (https://gist.github.com/xjamundx/b1c800e9282e16a6a18e)
+5. [webpack beginners guide, Site Point] (https://www.sitepoint.com/beginners-guide-to-webpack-2-and-module-bundling/?utm_source=frontendfocus&utm_medium=email)
+6. [requireJS-to-webpackConfig] (https://www.npmjs.com/package/requirejs-to-webpack-cli)
+7. [migration from requirejs to webpack] (https://medium.com/@ArtyomTrityak/migration-from-require-js-to-webpack-2-a733a4366ab5)
+8. [webpack-shimming] (https://webpack.js.org/guides/shimming/)
+9. [Critical-Dependencies] (http://webpack.github.io/docs/context.html#critical-dependencies)
+10. [Gulp Webpack plugin] (https://www.npmjs.com/package/gulp-webpack)
+11. [Webpack Dev Server StackOverFlow] (https://stackoverflow.com/questions/42712054/content-not-from-webpack-is-served-from-foo)
+12. [Webpack Dev Middleware in Express] (http://madole.github.io/blog/2015/08/26/setting-up-webpack-dev-middleware-in-your-express-application/)
+13. [Webpack Confusing Part] (https://medium.com/@rajaraodv/webpack-the-confusing-parts-58712f8fcad9)
+14. [Regular Expression, MDN] (https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/%EC%A0%95%EA%B7%9C%EC%8B%9D)
+15. [Regular Expression Test] (http://regexr.com/)
+Webpack First Principle, Video https://www.youtube.com/watch?v=WQue1AN93YU  
